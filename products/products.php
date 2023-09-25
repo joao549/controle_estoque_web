@@ -68,9 +68,9 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
         <td>{$id}</td>
         <td>{$nome}</td>
         <td>{$descricao}</td>
-        <td>{$unidade}/td>
+        <td>{$unidade}</td>
         <td>{$quantidade}</td>
-        <td>{$valor}<td>
+        <td>{$valor}</td>
         <td>{$imagem}</td>
         <td>";
             // read one record
