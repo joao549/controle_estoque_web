@@ -24,30 +24,21 @@ if($_POST){
         $stmt = $con->prepare($query);
     
         $nome=htmlspecialchars(strip_tags($_POST['nome']));
-
+        
         $descricao=htmlspecialchars(strip_tags($_POST['descricao']));
-
         $unidade=htmlspecialchars(strip_tags($_POST['unidade']));
-
         $quantidade=htmlspecialchars(strip_tags($_POST['quantidade']));
-
         $valor=htmlspecialchars(strip_tags($_POST['valor']));
-
         if(isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
             $imagem = file_get_contents($_FILES['imagem']['tmp_name']);
             $stmt->bindParam(':imagem', $imagem, PDO::PARAM_LOB);
         }
     
         $stmt->bindParam(':nome', $nome);
-        
         $stmt->bindParam(':descricao', $descricao);
-
         $stmt->bindParam(':unidade', $unidade);
-
         $stmt->bindParam(':quantidade', $quantidade);
-
         $stmt->bindParam(':valor', $valor);
-
         $stmt->bindParam(':imagem', $imagem, PDO::PARAM_LOB);
         
     

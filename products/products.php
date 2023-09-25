@@ -34,8 +34,8 @@ $stmt = $con->prepare($query);
 $stmt->execute();
 $num = $stmt->rowCount();
 echo "<a href='create.php' class='btn btn-primary m-b-1em'>NOVO PRODUTO</a>";
-
-echo "<a class='btn btn-primary m-b-1em'>Gerar XML</a>";
+echo " ";
+echo "<a class='btn btn-primary m-b-1em'>IMPORTAR XML</a>";
 
 if($num>0){
 
@@ -48,7 +48,7 @@ echo "<tr>
     <th>Unidade</th>
     <th>Quantidade</th>
     <th>Valor</th>
-    <th>Imagem</th>
+    
     
     
     

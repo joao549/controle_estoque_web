@@ -63,7 +63,10 @@ if($_POST){
         $unidade=htmlspecialchars(strip_tags($_POST['unidade']));
         $quantidade=htmlspecialchars(strip_tags($_POST['quantidade']));
         $valor=htmlspecialchars(strip_tags($_POST['valor']));
-        $imagem=htmlspecialchars(strip_tags($_POST['imagem']));
+        if(isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
+            $imagem = file_get_contents($_FILES['imagem']['tmp_name']);
+            $stmt->bindParam(':imagem', $imagem, PDO::PARAM_LOB);
+        }
 
         // bind the parameters
         $stmt->bindParam(':id', $id);
@@ -72,7 +75,7 @@ if($_POST){
         $stmt->bindParam(':unidade', $unidade);
         $stmt->bindParam(':quantidade', $quantidade);
         $stmt->bindParam(':valor', $valor);
-        $stmt->bindParam(':imagem', $imagem);
+        $stmt->bindParam(':imagem', $imagem, PDO::PARAM_LOB);
         
         // Execute the query
         if($stmt->execute()){
@@ -117,7 +120,7 @@ if($_POST){
 
         <tr>
             <td>Imagem</td>
-            <td><input type='text' name='price' value="<?php echo htmlspecialchars($imagem, ENT_QUOTES);  ?>" class='form-control'/></td>
+            <td><input type='file' name='price' value="<?php echo htmlspecialchars($imagem, ENT_QUOTES);  ?>" class='form-control'/></td>
         </tr>
 
        
