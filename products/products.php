@@ -36,6 +36,8 @@ $stmt->execute();
 $num = $stmt->rowCount();
 // link to create record form
 echo "<a href='create.php' class='btn btn-primary m-b-1em'>NOVO PRODUTO</a>";
+
+echo "<a class='btn btn-primary m-b-1em'>Gerar XML</a>";
 //check if more than 0 record found
 if($num>0){
     //start table
@@ -66,7 +68,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
         <td>{$id}</td>
         <td>{$nome}</td>
         <td>{$descricao}</td>
-        <td>{$unidade}/td<>
+        <td>{$unidade}/td>
         <td>{$quantidade}</td>
         <td>{$valor}<td>
         <td>{$imagem}</td>
