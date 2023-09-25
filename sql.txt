@@ -1,0 +1,9 @@
+CREATE TABLE produtos (
+  id int(11) NOT NULL
+  nome varchar(255) NOT NULL,
+  descricao varchar(255) DEFAULT NULL,
+  unidade varchar(2) NOT NULL,
+  valor decimal(10,2) NOT NULL,
+  quantidade int(11) NOT NULL,
+  imagem longblob DEFAULT NULL
+);
