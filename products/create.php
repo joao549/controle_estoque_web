@@ -33,7 +33,10 @@ if($_POST){
 
         $valor=htmlspecialchars(strip_tags($_POST['valor']));
 
-        $imagem=htmlspecialchars(strip_tags($_POST['imagem']));
+        if(isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
+            $imagem = file_get_contents($_FILES['imagem']['tmp_name']);
+            $stmt->bindParam(':imagem', $imagem, PDO::PARAM_LOB);
+        }
     
         $stmt->bindParam(':nome', $nome);
         
@@ -45,8 +48,7 @@ if($_POST){
 
         $stmt->bindParam(':valor', $valor);
 
-        $stmt->bindParam(':imagem', $imagem);
-        
+        $stmt->bindParam(':imagem', $imagem, PDO::PARAM_LOB);
         
     
         if($stmt->execute()){
@@ -62,7 +64,7 @@ if($_POST){
 }
 ?>
 
-<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" enctype="multipart/form-data">
     <table class='table table-hover table-responsive table-bordered'>
         <tr>
             <td>Nome</td>

@@ -73,17 +73,11 @@ catch(PDOException $exception){
     <td>Imagem</td>
     <td>
         <?php
-        var_dump($imagem);
-        if ($imagem !== null) {
-            $caminhoDaImagem = 'imagens/' . $imagem;
-            if (file_exists($caminhoDaImagem)) {
-                echo '<img src="'.$caminhoDaImagem.'" />';
-            } else {
-                echo 'Imagem não encontrada';
-            }
-        } else {
-            echo 'Imagem não disponível';
-        }
+       if ($imagem !== null) {
+        echo '<img src="data:image/jpeg;base64,'.base64_encode($imagem).'" />';
+    } else {
+        echo 'Imagem não disponível';
+    }
         ?>
     </td>
     </tr>

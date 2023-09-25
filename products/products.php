@@ -66,7 +66,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
         <td>{$unidade}</td>
         <td>{$quantidade}</td>
         <td>{$valor}</td>
-        <td>{$imagem}</td>
+        
         <td>";
             
             echo "<a href='read_one.php?id={$id}' class='btn btn-info m-r-1em'>Detalhes</a>";
