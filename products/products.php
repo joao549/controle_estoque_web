@@ -29,7 +29,7 @@ if($action=='deleted'){
     echo "<div class='alert alert-success'>Record was deleted.</div>";
 }
 // select all data
-$query = "SELECT id, name, price FROM products ORDER BY id DESC";
+$query = "SELECT id, nome, descricao, unidade, quantidade, valor FROM produtos ORDER BY id DESC";
 $stmt = $con->prepare($query);
 $stmt->execute();
 // this is how to get number of rows returned
@@ -59,8 +59,12 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
     // creating new table row per record
     echo "<tr>
         <td>{$id}</td>
-        <td>{$name}</td>
-        <td>{$price}</td>
+        <td>{$nome}</td>
+        <td>{$descricao}</td>
+        <td>{$unidade}/td<>
+        <td>{$quantidade}</td>
+        <td>{$valor}<td>
+        <td>{$imagem}</td>
         <td>";
             // read one record
             echo "<a href='read_one.php?id={$id}' class='btn btn-info m-r-1em'>Detalhes</a>";

@@ -19,18 +19,34 @@ if($_POST){
     include 'connection.php';
     try{
         // insert query
-        $query = "INSERT INTO products SET name=:name, price=:price";
+        $query = "INSERT INTO produtos SET nome=:nome, descricao=:descricao, unidade=:unidade, quantidade=:quantidade, valor=:valor, imagem=:imagem";
         // prepare query for execution
         $stmt = $con->prepare($query);
         // posted values
-        $name=htmlspecialchars(strip_tags($_POST['name']));
-        
-        $price=htmlspecialchars(strip_tags($_POST['price']));
+        $nome=htmlspecialchars(strip_tags($_POST['nome']));
+
+        $descricao=htmlspecialchars(strip_tags($_POST['descricao']));
+
+        $unidade=htmlspecialchars(strip_tags($_POST['unidade']));
+
+        $quantidade=htmlspecialchars(strip_tags($_POST['quantidade']));
+
+        $valor=htmlspecialchars(strip_tags($_POST['valor']));
+
+        $imagem=htmlspecialchars(strip_tags($_POST['imagem']));
         // bind the parameters
-        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':nome', $nome);
         
-        $stmt->bindParam(':price', $price);
-        // specify when this record was inserted to the database
+        $stmt->bindParam(':descricao', $descricao);
+
+        $stmt->bindParam(':unidade', $unidade);
+
+        $stmt->bindParam(':quantidade', $quantidade);
+
+        $stmt->bindParam(':valor', $valor);
+
+        $stmt->bindParam(':imagem', $imagem);
+        
         
         // Execute the query
         if($stmt->execute()){
@@ -50,12 +66,37 @@ if($_POST){
     <table class='table table-hover table-responsive table-bordered'>
         <tr>
             <td>Nome</td>
-            <td><input type='text' name='name' class='form-control' /></td>
+            <td><input type='text' name='nome' class='form-control' /></td>
         </tr>
        
         <tr>
-            <td>Preço</td>
-            <td><input type='text' name='price' class='form-control' /></td>
+            <td>Descrição</td>
+            <td><input type='text' name='descricao' class='form-control' /></td>
+        </tr>
+
+        <tr>
+            <td>Unidade</td>
+            <td>
+            <select type='text' name='unidade'>
+            <option value = 'UN'>UN</option>
+            <option value = 'KG'>KG</option>
+            </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Quantidade</td>
+            <td><input type='text' name='quantidade' class='form-control' /></td>
+        </tr>
+
+        <tr>
+            <td>Valor</td>
+            <td><input type='text' name='valor' class='form-control' /></td>
+        </tr>
+
+        <tr>
+            <td>Imagem</td>
+            <td><input type='file' name='imagem' class='form-control' /></td>
         </tr>
         <tr>
             <td></td>
@@ -72,4 +113,6 @@ if($_POST){
 <!-- Latest compiled and minified Bootstrap JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
+
 </html>
+
