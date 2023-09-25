@@ -22,7 +22,7 @@ include 'connection.php';
 // read current record's data
 try {
     // prepare select query
-    $query = "SELECT id, name, price FROM products WHERE id = ? LIMIT 0,1";
+    $query = "SELECT id, nome, descricao, unidade, quantidade, valor, imagem FROM produtos WHERE id = ? LIMIT 0,1";
     $stmt = $con->prepare( $query );
     // this is the first question mark
     $stmt->bindParam(1, $id);
@@ -31,9 +31,12 @@ try {
     // store retrieved row to a variable
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     // values to fill up our form
-    $name = $row['name'];
-    
-    $price = $row['price'];
+    $nome = $row['nome'];
+    $descricao = $row['descricao'];
+    $unidade = $row['unidade'];
+    $quantidade = $row['quantidade'];
+    $valor = $row['valor'];
+    $imagem = $row['imagem'];
 }
 // show error
 catch(PDOException $exception){
@@ -43,14 +46,50 @@ catch(PDOException $exception){
         <!--we have our html table here where the record will be displayed-->
 <table class='table table-hover table-responsive table-bordered'>
     <tr>
-        <td>Name</td>
-        <td><?php echo htmlspecialchars($name, ENT_QUOTES);  ?></td>
+        <td>Nome</td>
+        <td><?php echo htmlspecialchars($nome, ENT_QUOTES);?></td>
     </tr>
    
     <tr>
-        <td>Price</td>
-        <td><?php echo htmlspecialchars($price, ENT_QUOTES);  ?></td>
+        <td>Descrição</td>
+        <td><?php echo htmlspecialchars($descricao, ENT_QUOTES);?></td>
     </tr>
+
+    <tr>
+        <td>Unidade</td>
+        <td><?php echo htmlspecialchars($unidade, ENT_QUOTES);?></td>
+    </tr>
+
+    <tr>
+        <td>Quantidade</td>
+        <td><?php echo htmlspecialchars($quantidade, ENT_QUOTES);?></td>
+    </tr>
+
+    <tr>
+        <td>Valor</td>
+        <td><?php echo htmlspecialchars($valor, ENT_QUOTES);?></td>
+    </tr>
+
+    <tr>
+    <td>Imagem</td>
+    <td>
+        <?php
+        var_dump($imagem);
+        if ($imagem !== null) {
+            $caminhoDaImagem = 'imagens/' . $imagem;
+            if (file_exists($caminhoDaImagem)) {
+                echo '<img src="'.$caminhoDaImagem.'" />';
+            } else {
+                echo 'Imagem não encontrada';
+            }
+        } else {
+            echo 'Imagem não disponível';
+        }
+        ?>
+    </td>
+    </tr>
+
+    
     <tr>
         <td></td>
         <td>

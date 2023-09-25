@@ -22,7 +22,7 @@ include 'connection.php';
 // read current record's data
 try {
     // prepare select query
-    $query = "SELECT id, name, price FROM products WHERE id = ? LIMIT 0,1";
+    $query = "SELECT id, nome, descricao, unidade, quantidade, valor, imagem FROM produtos WHERE id = ? LIMIT 0,1";
     $stmt = $con->prepare( $query );
     // this is the first question mark
     $stmt->bindParam(1, $id);
@@ -31,8 +31,13 @@ try {
     // store retrieved row to a variable
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     // values to fill up our form
-    $name = $row['name'];
-    $price = $row['price'];
+    $nome = $row['nome'];
+    $descricao = $row['descricao'];
+    $unidade= $row['unidade'];
+    $quantidade = $row['quantidade'];
+    $valor = $row['valor'];
+    $imagem = $row['imagem'];
+
 }
 // show error
 catch(PDOException $exception){
@@ -46,20 +51,29 @@ if($_POST){
         // write update query
         // in this case, it seemed like we have so many fields to pass and
         // it is better to label them and not use question marks
-        $query = "UPDATE products
-                    SET name=:name, price=:price
+        $query = "UPDATE produtos
+                    SET nome=:nome, descricao=:descricao, unidade=:unidade, quantidade=:quantidade, valor=:valor, imagem=:imagem
                     WHERE id = :id";
         // prepare query for excecution
         $stmt = $con->prepare($query);
         // posted values
-        $name=htmlspecialchars(strip_tags($_POST['name']));
+        $nome=htmlspecialchars(strip_tags($_POST['nome']));
         
-        $price=htmlspecialchars(strip_tags($_POST['price']));
+        $descricao=htmlspecialchars(strip_tags($_POST['descricao']));
+        $unidade=htmlspecialchars(strip_tags($_POST['unidade']));
+        $quantidade=htmlspecialchars(strip_tags($_POST['quantidade']));
+        $valor=htmlspecialchars(strip_tags($_POST['valor']));
+        $imagem=htmlspecialchars(strip_tags($_POST['imagem']));
+
         // bind the parameters
-        $stmt->bindParam(':name', $name);
-        
-        $stmt->bindParam(':price', $price);
         $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':nome', $nome);
+        $stmt->bindParam(':descricao', $descricao);
+        $stmt->bindParam(':unidade', $unidade);
+        $stmt->bindParam(':quantidade', $quantidade);
+        $stmt->bindParam(':valor', $valor);
+        $stmt->bindParam(':imagem', $imagem);
+        
         // Execute the query
         if($stmt->execute()){
             echo "<div class='alert alert-success'>Record was updated.</div>";
@@ -78,13 +92,36 @@ if($_POST){
     <table class='table table-hover table-responsive table-bordered'>
         <tr>
             <td>Nome</td>
-            <td><input type='text' name='name' value="<?php echo htmlspecialchars($name, ENT_QUOTES);  ?>" class='form-control' /></td>
+            <td><input type='text' name='name' value="<?php echo htmlspecialchars($nome, ENT_QUOTES);  ?>" class='form-control'/></td>
         </tr>
         
         <tr>
-            <td>Preco</td>
-            <td><input type='text' name='price' value="<?php echo htmlspecialchars($price, ENT_QUOTES);  ?>" class='form-control' /></td>
+            <td>Descrição</td>
+            <td><input type='text' name='price' value="<?php echo htmlspecialchars($descricao, ENT_QUOTES);  ?>" class='form-control'/></td>
         </tr>
+
+        <tr>
+            <td>Unidade</td>
+            <td><input type='text' name='price' value="<?php echo htmlspecialchars($unidade, ENT_QUOTES);  ?>" class='form-control'/></td>
+        </tr>
+
+        <tr>
+            <td>Quantidade</td>
+            <td><input type='text' name='price' value="<?php echo htmlspecialchars($quantidade, ENT_QUOTES);  ?>" class='form-control'/></td>
+        </tr>
+
+        <tr>
+            <td>Valor</td>
+            <td><input type='text' name='price' value="<?php echo htmlspecialchars($valor, ENT_QUOTES);  ?>" class='form-control'/></td>
+        </tr>
+
+        <tr>
+            <td>Imagem</td>
+            <td><input type='text' name='price' value="<?php echo htmlspecialchars($imagem, ENT_QUOTES);  ?>" class='form-control'/></td>
+        </tr>
+
+       
+
         <tr>
             <td></td>
             <td>

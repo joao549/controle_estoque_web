@@ -29,7 +29,7 @@ if($action=='deleted'){
     echo "<div class='alert alert-success'>Record was deleted.</div>";
 }
 // select all data
-$query = "SELECT id, nome, descricao, unidade, quantidade, valor FROM produtos ORDER BY id DESC";
+$query = "SELECT id, nome, descricao, unidade, quantidade, valor, imagem FROM produtos ORDER BY id DESC";
 $stmt = $con->prepare($query);
 $stmt->execute();
 // this is how to get number of rows returned
@@ -43,9 +43,14 @@ echo "<table class='table table-hover table-responsive table-bordered'>";
 //creating our table heading
 echo "<tr>
     <th>ID</th>
-    <th>Name</th>
+    <th>Nome</th>
+    <th>Descrição</th>
+    <th>Unidade</th>
+    <th>Quantidade</th>
+    <th>Valor</th>
+    <th>Imagem</th>
     
-    <th>Price</th>
+    
     
 </tr>";
 // retrieve our table contents
