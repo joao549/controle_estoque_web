@@ -2,11 +2,11 @@
 <html>
 <head>
     <title>Gerenciamento de Produtos</title>
-    <!-- Latest compiled and minified Bootstrap CSS -->
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- custom css -->
+
     <style>
     .m-r-1em{ margin-right:1em; }
     .m-b-1em{ margin-bottom:1em; }
@@ -15,20 +15,20 @@
     </style>
 </head>
 <body>
-    <!-- container -->
+
     <div class="container">
         <div class="page-header">
             <h1>Gerenciamento de Produtos</h1>
         </div>
         <?php
-// include database connection
+
 include 'connection.php';
 $action = isset($_GET['action']) ? $_GET['action'] : "";
-// if it was redirected from delete.php
+
 if($action=='deleted'){
     echo "<div class='alert alert-success'>Record was deleted.</div>";
 }
-// select all data
+
 $query = "SELECT id, nome, descricao, unidade, quantidade, valor, imagem FROM produtos ORDER BY id DESC";
 $stmt = $con->prepare($query);
 $stmt->execute();
