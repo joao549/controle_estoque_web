@@ -2,27 +2,27 @@
 <html>
 <head>
     <title>Novo Produto</title>
-    <!-- Latest compiled and minified Bootstrap CSS -->
+    
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 </head>
 <body>
-    <!-- container -->
+    
     <div class="container">
         <div class="page-header">
             <h1>Inserção de Produto</h1>
         </div>
         <?php
 if($_POST){
-    // include database connection
+    
     include 'connection.php';
     try{
-        // insert query
+    
         $query = "INSERT INTO produtos SET nome=:nome, descricao=:descricao, unidade=:unidade, quantidade=:quantidade, valor=:valor, imagem=:imagem";
-        // prepare query for execution
+    
         $stmt = $con->prepare($query);
-        // posted values
+    
         $nome=htmlspecialchars(strip_tags($_POST['nome']));
 
         $descricao=htmlspecialchars(strip_tags($_POST['descricao']));
@@ -34,7 +34,7 @@ if($_POST){
         $valor=htmlspecialchars(strip_tags($_POST['valor']));
 
         $imagem=htmlspecialchars(strip_tags($_POST['imagem']));
-        // bind the parameters
+    
         $stmt->bindParam(':nome', $nome);
         
         $stmt->bindParam(':descricao', $descricao);
@@ -48,20 +48,20 @@ if($_POST){
         $stmt->bindParam(':imagem', $imagem);
         
         
-        // Execute the query
+    
         if($stmt->execute()){
             echo "<div class='alert alert-success'>Record was saved.</div>";
         }else{
             echo "<div class='alert alert-danger'>Unable to save record.</div>";
         }
     }
-    // show error
+    
     catch(PDOException $exception){
         die('ERROR: ' . $exception->getMessage());
     }
 }
 ?>
-<!-- html form here where the product information will be entered -->
+
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
     <table class='table table-hover table-responsive table-bordered'>
         <tr>
@@ -107,10 +107,10 @@ if($_POST){
         </tr>
     </table>
 </form>
-    </div> <!-- end .container -->
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    </div> 
+
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<!-- Latest compiled and minified Bootstrap JavaScript -->
+
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 
