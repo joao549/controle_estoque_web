@@ -35,7 +35,7 @@ $stmt->execute();
 $num = $stmt->rowCount();
 echo "<a href='create.php' class='btn btn-primary m-b-1em'>NOVO PRODUTO</a>";
 echo " ";
-echo "<a class='btn btn-primary m-b-1em'>IMPORTAR XML</a>";
+echo "<a href='importar_xml.php'class='btn btn-primary m-b-1em'>IMPORTAR XML</a>";
 
 if($num>0){
 
@@ -48,10 +48,6 @@ echo "<tr>
     <th>Unidade</th>
     <th>Quantidade</th>
     <th>Valor</th>
-    
-    
-    
-    
 </tr>";
 
 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){

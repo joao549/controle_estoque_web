@@ -36,7 +36,7 @@ try {
     $unidade= $row['unidade'];
     $quantidade = $row['quantidade'];
     $valor = $row['valor'];
-    $imagem = $row['imagem'];
+    
 
 }
 // show error
@@ -52,21 +52,17 @@ if($_POST){
         // in this case, it seemed like we have so many fields to pass and
         // it is better to label them and not use question marks
         $query = "UPDATE produtos
-                    SET nome=:nome, descricao=:descricao, unidade=:unidade, quantidade=:quantidade, valor=:valor, imagem=:imagem
+                    SET nome=:nome, descricao=:descricao, unidade=:unidade, quantidade=:quantidade, valor=:valor
                     WHERE id = :id";
         // prepare query for excecution
         $stmt = $con->prepare($query);
         // posted values
         $nome=htmlspecialchars(strip_tags($_POST['nome']));
-        
         $descricao=htmlspecialchars(strip_tags($_POST['descricao']));
         $unidade=htmlspecialchars(strip_tags($_POST['unidade']));
         $quantidade=htmlspecialchars(strip_tags($_POST['quantidade']));
         $valor=htmlspecialchars(strip_tags($_POST['valor']));
-        if(isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
-            $imagem = file_get_contents($_FILES['imagem']['tmp_name']);
-            $stmt->bindParam(':imagem', $imagem, PDO::PARAM_LOB);
-        }
+        
 
         // bind the parameters
         $stmt->bindParam(':id', $id);
@@ -75,7 +71,7 @@ if($_POST){
         $stmt->bindParam(':unidade', $unidade);
         $stmt->bindParam(':quantidade', $quantidade);
         $stmt->bindParam(':valor', $valor);
-        $stmt->bindParam(':imagem', $imagem, PDO::PARAM_LOB);
+        
         
         // Execute the query
         if($stmt->execute()){
@@ -95,32 +91,27 @@ if($_POST){
     <table class='table table-hover table-responsive table-bordered'>
         <tr>
             <td>Nome</td>
-            <td><input type='text' name='name' value="<?php echo htmlspecialchars($nome, ENT_QUOTES);  ?>" class='form-control'/></td>
+            <td><input type='text' name='nome' value="<?php echo htmlspecialchars($nome, ENT_QUOTES);  ?>" class='form-control'/></td>
         </tr>
         
         <tr>
             <td>Descrição</td>
-            <td><input type='text' name='price' value="<?php echo htmlspecialchars($descricao, ENT_QUOTES);  ?>" class='form-control'/></td>
+            <td><input type='text' name='descricao' value="<?php echo htmlspecialchars($descricao, ENT_QUOTES);  ?>" class='form-control'/></td>
         </tr>
 
         <tr>
             <td>Unidade</td>
-            <td><input type='text' name='price' value="<?php echo htmlspecialchars($unidade, ENT_QUOTES);  ?>" class='form-control'/></td>
+            <td><input type='text' name='unidade' value="<?php echo htmlspecialchars($unidade, ENT_QUOTES);  ?>" class='form-control'/></td>
         </tr>
 
         <tr>
             <td>Quantidade</td>
-            <td><input type='text' name='price' value="<?php echo htmlspecialchars($quantidade, ENT_QUOTES);  ?>" class='form-control'/></td>
+            <td><input type='text' name='quantidade' value="<?php echo htmlspecialchars($quantidade, ENT_QUOTES);  ?>" class='form-control'/></td>
         </tr>
 
         <tr>
             <td>Valor</td>
-            <td><input type='text' name='price' value="<?php echo htmlspecialchars($valor, ENT_QUOTES);  ?>" class='form-control'/></td>
-        </tr>
-
-        <tr>
-            <td>Imagem</td>
-            <td><input type='file' name='price' value="<?php echo htmlspecialchars($imagem, ENT_QUOTES);  ?>" class='form-control'/></td>
+            <td><input type='text' name='valor' value="<?php echo htmlspecialchars($valor, ENT_QUOTES);  ?>" class='form-control'/></td>
         </tr>
 
        
