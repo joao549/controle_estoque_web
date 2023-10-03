@@ -25,26 +25,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['xml_file'])) {
     }
 
     foreach($xml->Produtos as $produto){
-        $nome = $produto->Nome;
-        $descricao = $produto->Descricao;
-        $unidade = $produto->Unidade;
-        $valor = $produto->Valor;
-        $quantidade = $produto->Quantidade;
+        $nome = (string)$produto->Nome;
+        $descricao = (string)$produto->Descricao;
+        $unidade = (string)$produto->Unidade;
+        $valor = (float)$produto->Valor;
+        $quantidade = (int)$produto->Quantidade;
         $imagem_base64 = (string) $produto->Imagem;
         $imagem_data = base64_decode($imagem_base64);
 
         $stmt = $conn->prepare("INSERT INTO produtos (nome, descricao, unidade, valor, quantidade, imagem) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssdds", $nome, $descricao, $unidade, $valor, $quantidade, $imagem_data);
+        $stmt->bind_param("sssdis", $nome, $descricao, $unidade, $valor, $quantidade, $imagem_data);
+    
 
-        if ($stmt->execute()) {
-            echo "Dados inseridos com sucesso!";
-        } else {
-            echo "Erro ao inserir dados: " . $stmt->error;
-        }
+        if (!$stmt->execute()) {
+            echo "Erro ao inserir dados";
+        } 
 
         $stmt->close();
+    
     }
-
     $conn->close();
 
     echo "<div class='alert alert-success'>XML importado com sucesso!</div>";

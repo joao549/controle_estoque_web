@@ -29,10 +29,8 @@ $query = "SELECT id, nome, descricao, unidade, quantidade, valor, imagem FROM pr
 $stmt = $con->prepare($query);
 $stmt->execute();
 $num = $stmt->rowCount();
-//echo "<a href='create.php' class='btn btn-primary m-b-1em'>NOVO PRODUTO</a>";
-//echo " ";
-//echo "<a href='importar_xml.php'class='btn btn-primary m-b-1em'>IMPORTAR XML</a>";
-//echo" ";
+echo "<a href='carrinho.php' class='btn btn-primary m-b-1em'>VER CARRINHO</a>";
+echo " ";
 echo "<a href='../index.html'class='btn btn-danger m-b-1em'>SAIR</a>";
 
 if($num>0){
@@ -64,7 +62,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
         <td>";
             
             echo "<a href='read_one.php?id={$id}' class='btn btn-info m-r-1em'>Detalhes</a>";
-            echo "<a class='btn btn-primary m-r-1em'>Adicionar ao Carrinho</a>";
+            echo "<a href='add_carrinho.php?id={$id}' class='btn btn-primary m-r-1em'>Adicionar ao Carrinho</a>";
         echo "</td>";
     echo "</tr>";
 }
