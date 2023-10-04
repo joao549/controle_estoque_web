@@ -62,7 +62,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
         <td>";
             
             echo "<a href='read_one.php?id={$id}' class='btn btn-info m-r-1em'>Detalhes</a>";
-            echo "<a href='add_carrinho.php?id={$id}' class='btn btn-primary m-r-1em'>Adicionar ao Carrinho</a>";
+            echo "<button value='{$id}' class='btn btn-primary m-r-1em add-cart'>Adicionar ao Carrinho</button>";
         echo "</td>";
     echo "</tr>";
 }
@@ -77,9 +77,22 @@ else{
     </div>
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type='text/javascript'>
+    $('.add-cart').click(function($event){
+        var produto_id = $event.target.value;
+        var quantidade = prompt('teste')
+        var produto = {
+            id: produto_id,
+            quantidade: (quantidade || 1)
+        }
+        var produtos = JSON.parse(Cookies.get('carrinho') || '[]')
+        produtos.push(produto)
+        console.log(produtos)
+        Cookies.set('carrinho', JSON.stringify(produtos))
+    })
+    
 </script>
 </body>
 </html>

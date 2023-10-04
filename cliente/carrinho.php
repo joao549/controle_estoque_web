@@ -25,11 +25,11 @@
             <?php
                 session_start();
                 
-                if(isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])) {
-                    foreach($_SESSION['carrinho'] as $produto) {
+                if(isset($_COOKIE['carrinho']) && !empty($_COOKIE['carrinho'])) {
+                    foreach(json_decode($_COOKIE['carrinho']) as $produto) {
                         echo "<tr>
-                                <td>{$produto['nome']}</td>
-                                <td>{$produto['quantidade']}</td>
+                                <td>{$produto->id}</td>
+                                <td>{$produto->quantidade}</td>
                               </tr>";
                     }
                 } else {
