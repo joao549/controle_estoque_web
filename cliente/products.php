@@ -47,10 +47,8 @@ echo "<tr>
 </tr>";
 
 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-
-    
     extract($row);
-    
+
     echo "<tr>
         <td>{$id}</td>
         <td>{$nome}</td>
@@ -58,12 +56,11 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
         <td>{$unidade}</td>
         <td>{$quantidade}</td>
         <td>{$valor}</td>
-        
         <td>";
             
-            echo "<a href='read_one.php?id={$id}' class='btn btn-info m-r-1em'>Detalhes</a>";
-            echo "<button value='{$id}' class='btn btn-primary m-r-1em add-cart'>Adicionar ao Carrinho</button>";
-        echo "</td>";
+    echo "<a href='read_one.php?id={$id}' class='btn btn-info m-r-1em'>Detalhes</a>";
+    echo "<button value='{$id}' data-nome='{$nome}' class='btn btn-primary m-r-1em add-cart'>Adicionar ao Carrinho</button>";
+    echo "</td>";
     echo "</tr>";
 }
 
@@ -80,19 +77,24 @@ else{
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type='text/javascript'>
-    $('.add-cart').click(function($event){
-        var produto_id = $event.target.value;
-        var quantidade = prompt('teste')
+    $('.add-cart').click(function(event){
+    var produto_id = $(this).val(); // Obtém o ID do produto
+    var quantidade = prompt('Digite a quantidade:'); // Solicita ao usuário a quantidade
+    var nome = $(this).data('nome'); // Obtém o nome do produto do atributo data-nome
+
+    if (quantidade) {
         var produto = {
             id: produto_id,
-            quantidade: (quantidade || 1)
-        }
-        var produtos = JSON.parse(Cookies.get('carrinho') || '[]')
-        produtos.push(produto)
-        console.log(produtos)
-        Cookies.set('carrinho', JSON.stringify(produtos))
-    })
-    
+            nome: nome, // Adiciona o nome do produto
+            quantidade: parseInt(quantidade)
+        };
+
+        var produtos = JSON.parse(Cookies.get('carrinho') || '[]');
+        produtos.push(produto);
+        Cookies.set('carrinho', JSON.stringify(produtos));
+        console.log(produtos);
+    }
+});
 </script>
 </body>
 </html>

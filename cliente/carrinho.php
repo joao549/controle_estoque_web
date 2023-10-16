@@ -19,16 +19,22 @@
         <a href="products.php" class="btn btn-info m-b-1em">Voltar para Produtos</a>
         <table class='table table-hover table-responsive table-bordered'>
             <tr>
+                <th>Id do Produto</th>
                 <th>Nome do Produto</th>
                 <th>Quantidade</th>
             </tr>
             <?php
                 session_start();
+                include 'connection.php';
                 
                 if(isset($_COOKIE['carrinho']) && !empty($_COOKIE['carrinho'])) {
                     foreach(json_decode($_COOKIE['carrinho']) as $produto) {
+                        $produto_id = $produto->id;
+                        $produto_nome = $produto->nome; 
+
                         echo "<tr>
                                 <td>{$produto->id}</td>
+                                <td>{$produto_nome}</td>
                                 <td>{$produto->quantidade}</td>
                               </tr>";
                     }
@@ -37,6 +43,9 @@
                 }
             ?>
         </table>
+        <form action="comprar.php" method="post">
+            <input type="submit" class="btn btn-success" value="Comprar">
+        </form>
     </div>
 </body>
 </html>
