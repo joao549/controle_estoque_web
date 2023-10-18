@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $adm_password = "admin";
     $cliente_username = "cliente";
     $cliente_password = "cliente";
-    $felipe_username = "felipe"
+    
 
     if ($username === $adm_username && $password === $adm_password) {
         header("Location: ../adm/products.php");
